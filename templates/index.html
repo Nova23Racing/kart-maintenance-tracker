@@ -5,12 +5,26 @@
     <title>N5R Kart Maintenance Tracker</title>
     <style>
         body { font-family: sans-serif; margin: 40px; background-color: #f4f4f4; }
-        .kart-card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); width: 300px; }
+        .kart-card { background: white; padding: 20px; border-radius: 8px; margin-bottom: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); width: 300px; }
+        form { background: #ddd; padding: 20px; border-radius: 8px; margin-bottom: 30px; width: 300px; }
+        input { display: block; margin-bottom: 10px; width: 90%; }
         h1 { color: #2c3e50; }
     </style>
 </head>
 <body>
     <h1>Nova 23 Racing: Fleet Status</h1>
+
+    <h3>Add New Kart</h3>
+    <form action="/add" method="POST">
+        <input type="text" name="name" placeholder="Kart Name (e.g. N5R Beta)" required>
+        <input type="text" name="chassis" placeholder="Chassis Model">
+        <input type="text" name="engine" placeholder="Engine Type">
+        <input type="number" name="year" placeholder="Year">
+        <button type="submit">Add to Fleet</button>
+    </form>
+
+    <hr>
+
     <div id="fleet">
         {% for kart in karts %}
             <div class="kart-card">
