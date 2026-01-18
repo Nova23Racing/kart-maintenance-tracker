@@ -32,7 +32,7 @@
                 <tbody>
                     {% for part in parts %}
                     <tr>
-                        <td>{{ part['part_name'] }}</td>
+                        <td><a href="{{ url_for('part_logs', part_id=part['id']) }}">{{ part['part_name'] }}</a></td>
                         <td>{{ part['installation_date'] }}</td>
                         <td>{{ part['current_hours'] }} hrs</td>
                         <td>{{ part['lifespan_hours'] }} hrs</td>

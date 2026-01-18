@@ -50,6 +50,22 @@ def add_part(kart_id):
     conn.close()
     return redirect(url_for('kart_details', kart_id=kart_id))
 
+@app.route('/part/<int:part_id>', methods=('GET', 'POST'))
+def part_logs(part_id):
+    conn = get_db_connection()
+    
+    if request.method == 'POST':
+        description = request.form['description']
+        notes = request.form['notes']
+        conn.execute('INSERT INTO maintenance_logs (part_id, description, technician_notes) VALUES (?, ?, ?)',
+                     (part_id, description, notes))
+        conn.commit()
+
+    part = conn.execute('SELECT * FROM parts WHERE id = ?', (part_id,)).fetchone()
+    logs = conn.execute('SELECT * FROM maintenance_logs WHERE part_id = ? ORDER BY service_date DESC', (part_id,)).fetchall()
+    conn.close()
+    return render_template('part_logs.html', part=part, logs=logs)
+
 if __name__ == '__main__':
     app.run(debug=True)
 

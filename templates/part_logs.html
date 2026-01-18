@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Maintenance Logs</title>
+    <style>
+        body { font-family: sans-serif; margin: 40px; background-color: #f4f4f4; }
+        .log-entry { background: white; padding: 15px; border-left: 5px solid #3498db; margin-bottom: 10px; }
+        form { background: #eee; padding: 20px; border-radius: 8px; margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <a href="javascript:history.back()">← Back</a>
+    <h1>Logs for: {{ part['part_name'] }}</h1>
+
+    <div id="logs">
+        {% for log in logs %}
+            <div class="log-entry">
+                <strong>{{ log['service_date'] }}</strong><br>
+                {{ log['description'] }}<br>
+                <em>Notes: {{ log['technician_notes'] }}</em>
+            </div>
+        {% endfor %}
+    </div>
+
+    <form method="POST">
+        <h3>Log Maintenance</h3>
+        <input type="text" name="description" placeholder="Action (e.g. Cleaned and lubed)" required><br><br>
+        <textarea name="notes" placeholder="Additional notes..."></textarea><br><br>
+        <button type="submit">Save Log</button>
+    </form>
+</body>
+</html>
