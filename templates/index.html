@@ -28,7 +28,7 @@
     <div id="fleet">
         {% for kart in karts %}
             <div class="kart-card">
-                <h2>{{ kart['name'] }}</h2>
+                <h2><a href="{{ url_for('kart_details', kart_id=kart['id']) }}">{{ kart['name'] }}</a></h2>
                 <p><strong>Chassis:</strong> {{ kart['chassis_model'] }}</p>
                 <p><strong>Engine:</strong> {{ kart['engine_type'] }}</p>
                 <p><strong>Status:</strong> {{ kart['status'] }}</p>

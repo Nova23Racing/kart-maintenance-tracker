@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ kart['name'] }} Details</title>
+    <style>
+        body { font-family: sans-serif; margin: 40px; background-color: #f4f4f4; }
+        .part-list { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .warning { color: red; font-weight: bold; }
+        .safe { color: green; }
+        a { display: inline-block; margin-bottom: 20px; text-decoration: none; color: #3498db; }
+    </style>
+</head>
+<body>
+    <a href="{{ url_for('index') }}">← Back to Fleet</a>
+    <h1>{{ kart['name'] }} - Component Tracking</h1>
+    
+    <div class="part-list">
+        {% if not parts %}
+            <p>No parts tracked for this kart yet.</p>
+        {% else %}
+            <table border="1" cellpadding="10" style="border-collapse: collapse; width: 100%;">
+                <thead>
+                    <tr>
+                        <th>Part Name</th>
+                        <th>Installed</th>
+                        <th>Current Hours</th>
+                        <th>Max Lifespan</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for part in parts %}
+                    <tr>
+                        <td>{{ part['part_name'] }}</td>
+                        <td>{{ part['installation_date'] }}</td>
+                        <td>{{ part['current_hours'] }} hrs</td>
+                        <td>{{ part['lifespan_hours'] }} hrs</td>
+                        <td>
+                            {% if part['current_hours'] >= part['lifespan_hours'] %}
+                                <span class="warning">SERVICE REQUIRED</span>
+                            {% else %}
+                                <span class="safe">OK</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+    </div>
+
+    <hr>
+    <h3>Add New Part</h3>
+    <form action="/add_part/{{ kart['id'] }}" method="POST">
+        <input type="text" name="part_name" placeholder="Part Name (e.g. Spark Plug)" required>
+        <input type="date" name="install_date" required>
+        <input type="number" step="0.1" name="lifespan" placeholder="Lifespan Hours (e.g. 10)" required>
+        <button type="submit">Add Part</button>
+    </form>
+</body>
+</html>

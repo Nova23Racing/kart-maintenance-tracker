@@ -29,5 +29,27 @@ def add_kart():
     conn.close()
     return redirect(url_for('index'))
 
+@app.route('/kart/<int:kart_id>')
+def kart_details(kart_id):
+    conn = get_db_connection()
+    kart = conn.execute('SELECT * FROM karts WHERE id = ?', (kart_id,)).fetchone()
+    parts = conn.execute('SELECT * FROM parts WHERE kart_id = ?', (kart_id,)).fetchall()
+    conn.close()
+    return render_template('kart_details.html', kart=kart, parts=parts)
+
+@app.route('/add_part/<int:kart_id>', methods=('POST',))
+def add_part(kart_id):
+    part_name = request.form['part_name']
+    install_date = request.form['install_date']
+    lifespan = request.form['lifespan']
+
+    conn = get_db_connection()
+    conn.execute('INSERT INTO parts (kart_id, part_name, installation_date, lifespan_hours) VALUES (?, ?, ?, ?)',
+                 (kart_id, part_name, install_date, lifespan))
+    conn.commit()
+    conn.close()
+    return redirect(url_for('kart_details', kart_id=kart_id))
+
 if __name__ == '__main__':
     app.run(debug=True)
+
