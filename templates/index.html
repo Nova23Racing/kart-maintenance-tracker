@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>N5R Kart Maintenance Tracker</title>
+    <style>
+        body { font-family: sans-serif; margin: 40px; background-color: #f4f4f4; }
+        .kart-card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); width: 300px; }
+        h1 { color: #2c3e50; }
+    </style>
+</head>
+<body>
+    <h1>Nova 23 Racing: Fleet Status</h1>
+    <div id="fleet">
+        {% for kart in karts %}
+            <div class="kart-card">
+                <h2>{{ kart['name'] }}</h2>
+                <p><strong>Chassis:</strong> {{ kart['chassis_model'] }}</p>
+                <p><strong>Engine:</strong> {{ kart['engine_type'] }}</p>
+                <p><strong>Status:</strong> {{ kart['status'] }}</p>
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
