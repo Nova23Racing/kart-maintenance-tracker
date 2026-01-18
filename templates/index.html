@@ -32,6 +32,11 @@
                 <p><strong>Chassis:</strong> {{ kart['chassis_model'] }}</p>
                 <p><strong>Engine:</strong> {{ kart['engine_type'] }}</p>
                 <p><strong>Status:</strong> {{ kart['status'] }}</p>
+
+                <form action="/update_hours/{{ kart['id'] }}" method="POST" style="background:none; padding:0; width:100%;">
+                    <input type="number" step="0.1" name="hours" placeholder="Add session hours" required>
+                    <button type="submit" style="font-size: 0.8em;">Update Hours</button>
+                </form>
             </div>
         {% endfor %}
     </div>

@@ -66,6 +66,20 @@ def part_logs(part_id):
     conn.close()
     return render_template('part_logs.html', part=part, logs=logs)
 
+@app.route('/update_hours/<int:kart_id>', methods=('POST',))
+def update_hours(kart_id):
+    added_hours = float(request.form['hours'])
+    
+    conn = get_db_connection()
+    # Update Kart hours
+    conn.execute('UPDATE karts SET total_hours = total_hours + ? WHERE id = ?', (added_hours, kart_id))
+    # Update all parts attached to this kart
+    conn.execute('UPDATE parts SET current_hours = current_hours + ? WHERE kart_id = ?', (added_hours, kart_id))
+    
+    conn.commit()
+    conn.close()
+    return redirect(url_for('index'))
+
 if __name__ == '__main__':
     app.run(debug=True)
 
