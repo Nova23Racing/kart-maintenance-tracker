@@ -13,6 +13,18 @@ A specialized fleet management system designed to track maintenance intervals, p
 To provide a data-driven approach to karting maintenance, ensuring safety and peak performance for drivers in the STEM racing programs, including collaborations with partners like Spire Motorsports.
 
 
+## Current Features
+* **Fleet Dashboard:** View real-time status of all chassis in the N5R fleet.
+* **Relational Tracking:** Cascading hour updates (updating kart hours automatically updates all attached components).
+* **Component Lifespan Alerts:** Visual "Service Required" warnings when parts exceed their maximum hour limit.
+* **Maintenance Audit Trail:** Detailed log history for every part, tracking specific service dates and technician notes.
+
+## Project Structure
+* `app.py`: Main Flask application and backend logic.
+* `schema.sql`: Database architecture for Karts, Parts, and Logs.
+* `init_db.py`: Script to initialize the SQLite database.
+* `templates/`: HTML interface files.
+
 
 \## Tech Stack
 
